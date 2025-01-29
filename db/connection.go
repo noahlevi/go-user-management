@@ -25,10 +25,13 @@ func Init(host, port, user, password, dbName string) {
 	Migrate()
 }
 
-// Migrate function to run migrations
 func Migrate() {
-	err := DB.AutoMigrate(&models.User{})
-	if err != nil {
-		log.Fatal("failed to migrate database: ", err)
-	}
+	if err := DB.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";").Error; err != nil {
+        log.Fatal("failed to create uuid-ossp extension: ", err)
+    }
+	
+    err := DB.AutoMigrate(&models.User{})
+    if err != nil {
+        log.Fatal("failed to migrate database: ", err)
+    }
 }
