@@ -1,4 +1,4 @@
-FROM golang:1.20 AS builder
+FROM golang:1.23 AS builder
 
 WORKDIR /app
 
@@ -9,15 +9,13 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o user-service ./cmd/user-service
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o user-service ./main.go
 
 FROM alpine:latest  
 
 WORKDIR /root/
 
 COPY --from=builder /app/user-service .
-
-COPY --from=builder /app/.env .
 
 EXPOSE 8080
 
