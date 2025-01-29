@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"os"
-	// "path/filepath"
+	// "time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -12,28 +12,21 @@ import (
 )
 
 func main() {
-
-	execPath, path_err := os.Executable()
-	if path_err != nil {
-		log.Fatal("Error getting executable path:", path_err)
-		return
-	}
-
-	err := godotenv.Load(execPath)
+	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file on main: ", err)
 	}
 
-    dbHost := os.Getenv("DB_HOST")
-    dbPort := os.Getenv("DB_PORT")
-    dbUser := os.Getenv("DB_USER")
-    dbPassword := os.Getenv("DB_PASSWORD")
-    dbName := os.Getenv("DB_NAME")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
 
-    db.Init(dbHost, dbPort, dbUser, dbPassword, dbName)
-    if err != nil {
-        log.Fatalf("Failed to connect to the database: ")
-    }
+	db.Init(dbHost, dbPort, dbUser, dbPassword, dbName)
+	if err != nil {
+		log.Fatalf("Failed to connect to the database: ")
+	}
 
 	r := gin.Default()
 

@@ -21,6 +21,8 @@ func Init(host, port, user, password, dbName string) {
 	if err != nil {
 		log.Fatal("failed to connect to database: ", err)
 	}
+
+	Migrate()
 }
 
 // Migrate function to run migrations

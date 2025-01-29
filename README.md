@@ -66,7 +66,7 @@ go mod tidy
 
 ```bash
 HOST=0.0.0.0
-PORT=8080
+PORT=5000
 DB_HOST=localhost
 DB_USER=gouser
 DB_NAME=yourdb
@@ -97,10 +97,10 @@ docker-compose up --build
 ## Example Usage
 
 ```bash 
-curl -X POST http://localhost:8080/users -H "Content-Type: application/json" -d '{"name": "John Doe", "email": "john@example.com"}'
+curl -X POST http://localhost:5000/users -H "Content-Type: application/json" -d '{"name": "John Doe", "email": "john@example.com"}'
 ```
 
 ```bash 
-curl -X GET http://localhost:8080/users/{id}
+curl -X GET http://localhost:5000/users/{id}
 ```
 
