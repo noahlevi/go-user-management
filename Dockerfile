@@ -9,6 +9,8 @@ RUN go mod download
 
 COPY . .
 
+COPY .env ./.env 
+
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o user-service ./main.go
 
 FROM alpine:latest  

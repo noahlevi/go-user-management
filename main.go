@@ -3,6 +3,7 @@ package main
 import (
     "log"
     "os"
+    "path/filepath"
     
     "github.com/gin-gonic/gin"
     "github.com/joho/godotenv"
@@ -11,26 +12,20 @@ import (
 )
 
 func main() {
-    // Load environment variables from .env file
-    err := godotenv.Load()
+    err := godotenv.Load(filepath.Join(".", ".env"))
     if err != nil {
-        log.Fatal("Error loading .env file")
+        log.Fatal("Error loading .env file on main: ", err)
     }
 
-    // Initialize database
     db.Init()
 
-    // Create a new Gin router
     r := gin.Default()
 
-    // Register user routes
     user.RegisterRoutes(r)
 
-    // Get host and port from environment variables 
     host := os.Getenv("HOST")
     port := os.Getenv("PORT")
 
-    // Run the server
     log.Printf("Server running at %s:%s\n", host, port)
     err = r.Run(host + ":" + port)
     if err != nil {
